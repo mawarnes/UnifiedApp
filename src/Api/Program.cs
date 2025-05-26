@@ -1,12 +1,12 @@
-using Data;
+using Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Service;
-using Service.UserGroup;
 using System.Text;
+using Infrastructure;
+using Application.Identity;
 namespace Api
 {
     public class Program
@@ -19,14 +19,8 @@ namespace Api
             var appSettings = builder.Configuration.GetSection("TokenSettings").Get<TokenSettings>() ?? default!;
             builder.Services.AddSingleton(appSettings);
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                            options.UseSqlServer(connectionStr, x => x.MigrationsAssembly("Data")));
-
-            builder.Services.AddIdentityCore<ApplicationUser>()
-                .AddRoles<IdentityRole>()
-                .AddSignInManager()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("REFRESHTOKENPROVIDER");
+            //adds the database and identity setup
+            builder.Services.AddInfrastructure(builder.Configuration);
 
             builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
             {
@@ -55,7 +49,7 @@ namespace Api
                 });
 
             builder.Services.AddScoped<ApplicationDbContextInitialiser>();
-            builder.Services.AddTransient<UserService>();
+            builder.Services.AddApplication(builder.Configuration);
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
