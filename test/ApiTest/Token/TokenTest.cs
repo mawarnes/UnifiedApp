@@ -1,7 +1,7 @@
 using Api;
+using Application.Identity;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using Service.UserGroup;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
