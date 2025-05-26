@@ -11,5 +11,6 @@ namespace Application.Identity
         Task<List<Claim>> GetUserClaimsAsync(string userId);
         Task<bool> UserLogoutAsync(string username);
         Task<(bool isSuccessful, string token, string refreshToken)> UserRefreshTokenAsync(string username, string token);
+        Task<List<ApplicationUser>> GetAllUsersAsync();
     }
 }

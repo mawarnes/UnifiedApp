@@ -92,6 +92,12 @@ namespace Infrastructure.Identity
             return (true, tokens.token, tokens.refreshToken);
         }
 
+        public async Task<List<ApplicationUser>> GetAllUsersAsync()
+        {
+            var response=mapper.Map<List<ApplicationUser>>(await applicationDbContext.Users.ToListAsync());
+            return response;
+        }
+
         private async Task<(string token, string refreshToken)> GenerateUserTokenAsync(ApplicationUserDb dbUser)
         {
             var claims = await GetUserClaimsAsync(dbUser.Id);

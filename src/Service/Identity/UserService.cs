@@ -31,6 +31,10 @@ namespace Application.Identity
         public string Email { get; set; } = "";
         public string Password { get; set; } = "";
     }
+    public class GetAllResponse
+    {
+        public List<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
+    }
     public class UserService(IUserRepository userRepository, TokenSettings tokenSettings) : IUserService
     {
         public async Task<AppResponse<UserLoginResponse>> UserLoginAsync(UserLoginRequest request)
@@ -117,6 +121,13 @@ namespace Application.Identity
             }
 
             return errorDictionary;
+        }
+
+        public async Task<AppResponse<List<ApplicationUser>>> GetAllUsersAsync()
+        {
+            // Fetch users from your repository or DbContext
+            var users = await userRepository.GetAllUsersAsync();
+            return new AppResponse<List<ApplicationUser>>().SetSuccessResponse(users);
         }
     }
 }

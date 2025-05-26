@@ -1,5 +1,6 @@
 using Application;
 using Application.Identity;
+using Domain.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +38,13 @@ namespace Presentation.Api.Controllers
         public string Profile()
         {
             return User.FindFirst("UserName")?.Value ?? "";
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<AppResponse<List<ApplicationUser>>> GetAll()
+        {
+            return await userService.GetAllUsersAsync();
         }
     }
 }
