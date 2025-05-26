@@ -1,7 +1,7 @@
 # UnifiedApp
 [![.NET](https://github.com/andissanayake/UnifiedApp/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/andissanayake/UnifiedApp/actions/workflows/dotnet.yml)
 
-This example illustrates how to establish JWT token-based authentication in an ASP.NET Core Identity project using ASP.NET Core 8.
+This example illustrates how to establish JWT token-based authentication in an ASP.NET Core Identity project using ASP.NET Core 9.
 
 ## Endpoints
 
@@ -9,6 +9,7 @@ This example illustrates how to establish JWT token-based authentication in an A
 - **Login:** Log in and receive a JWT token.
 - **Refresh Token:** Renew tokens without re-login.
 - **Profile:** Access user-specific information.
+- **GetAll:** Get a list of account.
 ![Endpoints](https://github.com/andissanayake/UnifiedApp/blob/master/images/endpoint.png?raw=true)
 
 
