@@ -46,6 +46,8 @@ import { useAppSelector } from "./app/hooks";
 import { selectAuth } from "./app/store";
 import { UserLayout } from "./layout/UserLayout";
 import { Spin } from "antd";
+import UsersList from "./pages/UsersList";
+import EditProfile from "./pages/EditProfile";
 export const App = () => {
     const auth = useAppSelector(selectAuth);
     if (!auth.user) {
@@ -68,6 +70,8 @@ export const App = () => {
                     <Routes>
                         <Route path="/" element={<UserLayout {...auth.user} />}>
                             <Route index element={<HomePage />} />
+                            <Route path="/users" element={<UsersList />} />
+                            <Route path="/edit-profile" element={<EditProfile />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Route>
                     </Routes>

@@ -69,3 +69,13 @@ export const { updateToken, resetToken, setLoading, resetLoading } =
   authSlice.actions;
 export const selectAuth = (state: RootState) => state.auth;
 export default authSlice.reducer;
+
+export const updateProfileAsync = createAsyncThunk(
+  "auth/updateProfile",
+  async (profile: { userName: string; email: string; phoneNumber?: string }, thunkAPI) => {
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    // Return the updated profile as if it was saved on the server
+    return profile;
+  }
+);

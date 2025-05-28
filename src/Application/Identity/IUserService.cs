@@ -9,6 +9,6 @@ namespace Application.Identity
         Task<AppResponse<bool>> UserLogoutAsync(ClaimsPrincipal user);
         Task<AppResponse<UserRefreshTokenResponse>> UserRefreshTokenAsync(UserRefreshTokenRequest request);
         Task<AppResponse<bool>> UserRegisterAsync(UserRegisterRequest request);
-        Task<AppResponse<List<ApplicationUser>>> GetAllUsersAsync();
+        Task<AppResponse<ApplicationUser[]>> GetAllUsersAsync();
     }
 }

@@ -1,4 +1,4 @@
-import { App, Layout, Menu } from "antd";
+import { App, Dropdown, Layout, Menu } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
@@ -28,6 +28,25 @@ export const UserLayout = ({ UserName }: iUser) => {
   const handleClick = (key: string) => {
     navigate(key);
   };
+
+    const handleLogout = () => {
+    dispatch(logoutAsync());
+    handleClick("/");
+  };
+
+  const userMenu = {
+  items: [
+    {
+      key: "edit-profile",
+      label: <span onClick={() => handleClick("/edit-profile")}>Edit Profile</span>,
+    },
+    {
+      key: "logout",
+      label: <span onClick={handleLogout}>Logout</span>,
+    },
+  ],
+  };
+
   return (
     <App>
       <Layout className="layout">
@@ -47,20 +66,30 @@ export const UserLayout = ({ UserName }: iUser) => {
                   handleClick(e.key);
                 },
               },
-              {
-                key: "/user",
-                label: UserName,
-              },
-              {
-                key: "/logout",
-                label: "Logout",
-                onClick: () => {
-                  dispatch(logoutAsync());
-                  handleClick("/");
+                           {
+                key: "/users",
+                label: "Users",
+                                onClick: (e) => {
+                  handleClick(e.key);
                 },
               },
             ]}
           />
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
+          <Dropdown menu={userMenu} trigger={["click"]}>
+            <span
+              style={{
+                marginLeft: 14,
+                color: "#fff",
+                fontWeight: 500,
+                cursor: "pointer",
+                userSelect: "none",
+              }}
+            >
+              {UserName}
+            </span>
+          </Dropdown>
+                  </div>
         </Header>
         <Content style={{ padding: "0 50px", minHeight: "400px" }}>
           <Outlet />

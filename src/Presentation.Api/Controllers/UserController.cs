@@ -42,9 +42,10 @@ namespace Presentation.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<AppResponse<List<ApplicationUser>>> GetAll()
+        public async Task<AppResponse<ApplicationUser[]>> GetAll()
         {
-            return await userService.GetAllUsersAsync();
+            var response =  await userService.GetAllUsersAsync();
+            return response;
         }
     }
 }

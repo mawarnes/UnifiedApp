@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { iAppResponse } from "../../app/appResponse";
+import type { ApplicationUser } from "../../pages/UsersList";
 
 const BASE_URL = "https://localhost:1002";
 
@@ -46,6 +47,12 @@ export const logout = async () => {
 };
 export const profileApi = async () => {
   const response = await axios.post(`${BASE_URL}/user/profile`).catch((ex)=>{
+    console.log(ex);
+  });
+  return response?.data;
+};
+export const usersApi = async () => {
+    const response = await axios.get<iAppResponse<ApplicationUser[]>>(`${BASE_URL}/user/getall`).catch((ex)=>{
     console.log(ex);
   });
   return response?.data;

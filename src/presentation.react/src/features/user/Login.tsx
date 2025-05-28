@@ -73,7 +73,7 @@ export const Login = () => {
           />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}  style={{ textAlign: "right" }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>

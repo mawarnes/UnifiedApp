@@ -1,4 +1,4 @@
-import { App, Layout, Menu } from "antd";
+import { Space,App, Layout, Menu, Dropdown, Button } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
@@ -25,6 +25,23 @@ export const DefaultLayout = () => {
   const handleClick = (key: string) => {
     navigate(key);
   };
+
+    // Menu for login/register
+  const loginMenu = {
+    items: [
+      {
+        key: "/login",
+        label: "Login",
+        onClick: () => handleClick("/login"),
+      },
+      {
+        key: "/register",
+        label: "Register",
+        onClick: () => handleClick("/register"),
+      },
+    ],
+  };
+
   return (
     <App>
       <Layout className="layout">
@@ -36,29 +53,20 @@ export const DefaultLayout = () => {
             defaultSelectedKeys={["/"]}
             selectedKeys={[current]}
             items={[
-              {
-                key: "/",
-                label: "Home",
-                onClick: (e) => {
-                  handleClick(e.key);
-                },
-              },
-              {
-                key: "/login",
-                label: "Login",
-                onClick: (e) => {
-                  handleClick(e.key);
-                },
-              },
-              {
-                key: "/register",
-                label: "Register",
-                onClick: (e) => {
-                  handleClick(e.key);
-                },
-              },
-            ]}
-          />
+              // {
+              //   key: "/",
+              //   label: "Home",
+              //   onClick: (e) => {
+              //     handleClick(e.key);
+              //   },
+              // },
+            ]}          style={{ flex: 1, minWidth: 0 }}
+        />        
+          <Dropdown menu={loginMenu} trigger={["click"]}>
+            <Button type="text" style={{ color: "#fff", marginLeft: 24 }}>
+              Login
+            </Button>
+          </Dropdown>
         </Header>
         <Content style={{ padding: "0 50px", minHeight: "400px" }}>
           <Outlet />

@@ -123,11 +123,11 @@ namespace Application.Identity
             return errorDictionary;
         }
 
-        public async Task<AppResponse<List<ApplicationUser>>> GetAllUsersAsync()
+        public async Task<AppResponse<ApplicationUser[]>> GetAllUsersAsync()
         {
             // Fetch users from your repository or DbContext
             var users = await userRepository.GetAllUsersAsync();
-            return new AppResponse<List<ApplicationUser>>().SetSuccessResponse(users);
+            return new AppResponse<ApplicationUser[]>().SetSuccessResponse(users.ToArray());
         }
     }
 }
