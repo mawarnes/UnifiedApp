@@ -1,5 +1,5 @@
-import { App, Button, Form, type FormInstance, Input } from "antd";
-import React from "react";
+import { App, Button, Form, type FormInstance, Input, Modal } from "antd";
+import React, { useState } from "react";
 import { login } from "./authAPI";
 import { useAppDispatch } from "../../app/hooks";
 import { updateToken, resetLoading, setLoading } from "./authSlice";
@@ -9,12 +9,12 @@ type FieldType = {
   password?: string;
 };
 
-export const Login = () => {
+export const LoginModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const { message } = App.useApp();
   const formRef = React.useRef<FormInstance>(null);
+
   const onFinish = async (values: FieldType) => {
     dispatch(setLoading());
     const data = await login(values.email as string, values.password as string);
@@ -22,8 +22,9 @@ export const Login = () => {
     if (data?.isSucceed && data?.data) {
       message.success("Login is successful.");
       dispatch(updateToken(data.data));
+      onClose();
       navigate("/");
-    } else if(data!=null) {
+    } else if (data != null) {
       data?.messages?.email &&
         formRef.current?.setFields([
           { name: "email", errors: data.messages?.email },
@@ -32,53 +33,44 @@ export const Login = () => {
         formRef.current?.setFields([
           { name: "password", errors: data.messages?.password },
         ]);
-    }else{
-      message.error("Unexpected error occurred please try again later.");
+    } else {
+      message.error("Login failed.");
     }
   };
-  return (
-    <>
-      <Form
-        name="unified-app-login"
-        id="unified-app-login"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        autoComplete="unified-app-login"
-        ref={formRef}
-      >
-        <Form.Item<FieldType>
-          label="email"
-          name="email"
-          rules={[{ required: true, message: "Please input your Email!" }]}
-        >
-          <Input
-            name="unified-app-login-name"
-            id="unified-app-login-name"
-            autoComplete="unified-app-login-name"
-          />
-        </Form.Item>
 
-        <Form.Item<FieldType>
+  return (
+    <Modal
+      open={open}
+      onCancel={onClose}
+      footer={null}
+      title="Login"
+      destroyOnHidden={true}
+
+    >
+      <Form ref={formRef} name="login" onFinish={onFinish} layout="vertical">
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[
+            { required: true, message: "Please input your email!" },
+            { type: "email", message: "Please enter a valid email!" },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
+          rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password
-            name="unified-app-login-password"
-            id="unified-app-login-password"
-            autoComplete="unified-app-login-password"
-          />
+          <Input.Password />
         </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}  style={{ textAlign: "right" }}>
+        <Form.Item style={{ textAlign: "right" }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </Modal>
   );
 };

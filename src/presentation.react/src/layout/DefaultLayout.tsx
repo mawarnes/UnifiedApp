@@ -1,11 +1,13 @@
 import { Space,App, Layout, Menu, Dropdown, Button } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import { useEffect, useState } from "react";
+import { LoginModal } from "../features/user/Login";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { AppLogo } from "../features/AppLogo";
 import { AppFooter } from "../features/Footer";
 
 export const DefaultLayout = () => {
+  const [loginOpen, setLoginOpen] = useState(false);
   const navigate = useNavigate();
   let location = useLocation();
   const [current, setCurrent] = useState(
@@ -21,6 +23,9 @@ export const DefaultLayout = () => {
       }
     }
   }, [location]);
+
+  // Inside your component:
+
 
   const handleClick = (key: string) => {
     navigate(key);
@@ -62,11 +67,11 @@ export const DefaultLayout = () => {
               // },
             ]}          style={{ flex: 1, minWidth: 0 }}
         />        
-          <Dropdown menu={loginMenu} trigger={["click"]}>
-            <Button type="text" style={{ color: "#fff", marginLeft: 24 }}>
-              Login
-            </Button>
-          </Dropdown>
+<Button type="text" style={{ color: "#fff", marginLeft: 24 }} onClick={() => setLoginOpen(true)}>
+  Login
+</Button>
+
+          <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
         </Header>
         <Content style={{ padding: "0 50px", minHeight: "400px" }}>
           <Outlet />

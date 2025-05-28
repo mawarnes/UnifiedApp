@@ -1,12 +1,14 @@
 import { Breadcrumb } from "antd";
-import { Login } from "../features/user/Login";
+import { LoginModal } from "../features/user/Login";
+import { useState } from "react";
 
-export const LoginPage = () => (
+export const LoginPage = () => {
+    const [open, setOpen] = useState(true);
   <>
     <Breadcrumb
       style={{ margin: "16px 0" }}
       items={[{ key: 1, title: "Login", separator: "/" }]}
     ></Breadcrumb>
-    <Login></Login>
+      <LoginModal open={open} onClose={() => setOpen(false)} />
   </>
-);
+};
