@@ -1,16 +1,16 @@
-name: Build and deploy .NET Core application to Web App PresentationApi20250529124257 with API Management Service manserv-PresentationApi-PresentationApi
+name: Build and deploy .NET Core application to Web App rg-metronvu with API Management Service manserv-PresentationApi-PresentationApi
 on:
   push:
     branches:
     - development
 env:
-  AZURE_WEBAPP_NAME: PresentationApi20250529124257
+  AZURE_WEBAPP_NAME: rg-metronvu
   AZURE_WEBAPP_PACKAGE_PATH: src/Presentation.Api/publish
   AZURE_APIM_RESOURCE_PATH: /
   AZURE_APIM_RESOURCEGROUP: NetworkWatcherRG
   AZURE_APIM_SERVICENAME: manserv-PresentationApi
   AZURE_APIM_API_ID: PresentationApi
-  AZURE_APIM_APPSERVICEURL: https://presentationapi20250529124257-dpf2c4cafzddgdd0.uksouth-01.azurewebsites.net
+  AZURE_APIM_APPSERVICEURL: https://rg-metronvu-hxhbasbxbnfee2bc.uksouth-01.azurewebsites.net
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
   API_IMPORT_SPECIFICATION_PATH: src/Presentation.Api/publish/swagger.json
@@ -43,10 +43,8 @@ jobs:
     - name: Install Swashbuckle CLI .NET Global Tool
       run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
-    # - name: dotnet restore
-    #   run: dotnet tool restore
-    # - name: Generate Open API Specification Document
-    #   run: swagger tofile --output "${{ env.API_IMPORT_SPECIFICATION_PATH }}" "${{ env.API_IMPORT_DLL }}" "${{ env.API_IMPORT_VERSION }}"
+    - name: Generate Open API Specification Document
+      run: swagger tofile --output "${{ env.API_IMPORT_SPECIFICATION_PATH }}" "${{ env.API_IMPORT_DLL }}" "${{ env.API_IMPORT_VERSION }}"
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -64,7 +62,7 @@ jobs:
     - name: Azure Login
       uses: azure/login@v2
       with:
-        creds: ${{ secrets.manserv_PresentationApi_SPN }}
+        creds: ${{ secrets.MANSERV_PRESENTATIONAPI_SPN }}
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
