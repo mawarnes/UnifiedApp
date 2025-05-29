@@ -3,6 +3,9 @@ on:
   push:
     branches:
     - development
+permissions:
+  id-token: write
+
 env:
   AZURE_WEBAPP_NAME: rg-metronvu
   AZURE_WEBAPP_PACKAGE_PATH: src/Presentation.Api/publish
