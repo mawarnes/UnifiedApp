@@ -9,6 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": ">=22.15.21"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "@types/node": "^22.15.21",
