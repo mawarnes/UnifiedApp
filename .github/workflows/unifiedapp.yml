@@ -12,7 +12,7 @@ env:
   AZURE_APIM_RESOURCEGROUP: rg-unifiedapp
   AZURE_APIM_SERVICENAME: apims-unifiedapp
   AZURE_APIM_API_ID: api-unifiedapp
-  AZURE_APIM_APPSERVICEURL: https://apims-unifiedapp.developer.azure-api.net
+  AZURE_APIM_APPSERVICEURL: https://apims-unifiedapp.azure-api.net
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
   API_IMPORT_SPECIFICATION_PATH: src/Presentation.Api/publish/swagger.json
