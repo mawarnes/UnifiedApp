@@ -126,14 +126,14 @@ const UsersList: React.FC = () => {
 
 const handleResize =
   (index: number) =>
-      (e: any, { size }: any) => {
+      (_e:any,{ size }: any) => {
     const nextColumns = [...columns];
     // Only resize the column being dragged (on the right side)
     nextColumns[index] = {
       ...nextColumns[index],
       width: size.width,
           };
-      setColumns(nextColumns);
+          setColumns(nextColumns);
   };
 
   const mergedColumns = columns.map((col, index) => ({

@@ -73,7 +73,7 @@ export default authSlice.reducer;
 
 export const updateProfileAsync = createAsyncThunk(
   "auth/updateProfile",
-  async (profile: { userName: string; email: string; phoneNumber?: string }, thunkAPI) => {
+  async (profile: { userName: string; email: string; phoneNumber?: string }, _thunkAPI) => {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 800));
     // Return the updated profile as if it was saved on the server
