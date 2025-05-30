@@ -1,5 +1,5 @@
 import { App, Button, Form, type FormInstance, Input, Modal } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { login } from "./authAPI";
 import { useAppDispatch } from "../../app/hooks";
 import { updateToken, resetLoading, setLoading } from "./authSlice";

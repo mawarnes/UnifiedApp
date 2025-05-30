@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { type PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { type RootState } from "../../app/store";
 import { jwtDecode } from "jwt-decode";

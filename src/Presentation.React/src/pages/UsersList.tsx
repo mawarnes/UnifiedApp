@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { Table, Checkbox, Dropdown, Button } from "antd";
 import { DownOutlined } from "@ant-design/icons";
@@ -125,14 +126,14 @@ const UsersList: React.FC = () => {
 
 const handleResize =
   (index: number) =>
-  (e: any, { size }: any) => {
+      (e: any, { size }: any) => {
     const nextColumns = [...columns];
     // Only resize the column being dragged (on the right side)
     nextColumns[index] = {
       ...nextColumns[index],
       width: size.width,
-    };
-    setColumns(nextColumns);
+          };
+      setColumns(nextColumns);
   };
 
   const mergedColumns = columns.map((col, index) => ({

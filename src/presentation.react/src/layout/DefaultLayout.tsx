@@ -1,15 +1,15 @@
-import { Space,App, Layout, Menu, Dropdown, Button } from "antd";
+import { App, Layout, Menu,Button } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import { useEffect, useState } from "react";
 import { LoginModal } from "../features/user/Login";
-import { Outlet, useLocation, useNavigate } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { AppLogo } from "../features/AppLogo";
 import { AppFooter } from "../features/Footer";
 
 export const DefaultLayout = () => {
   const [loginOpen, setLoginOpen] = useState(false);
-  const navigate = useNavigate();
-  let location = useLocation();
+  //const navigate = useNavigate();
+  const location = useLocation();
   const [current, setCurrent] = useState(
     location.pathname === "/" || location.pathname === ""
       ? "/"
@@ -27,25 +27,25 @@ export const DefaultLayout = () => {
   // Inside your component:
 
 
-  const handleClick = (key: string) => {
-    navigate(key);
-  };
+  //const handleClick = (key: string) => {
+  //  navigate(key);
+  //};
 
     // Menu for login/register
-  const loginMenu = {
-    items: [
-      {
-        key: "/login",
-        label: "Login",
-        onClick: () => handleClick("/login"),
-      },
-      {
-        key: "/register",
-        label: "Register",
-        onClick: () => handleClick("/register"),
-      },
-    ],
-  };
+  //const loginMenu = {
+  //  items: [
+  //    {
+  //      key: "/login",
+  //      label: "Login",
+  //      onClick: () => handleClick("/login"),
+  //    },
+  //    {
+  //      key: "/register",
+  //      label: "Register",
+  //      onClick: () => handleClick("/register"),
+  //    },
+  //  ],
+  //};
 
   return (
     <App>

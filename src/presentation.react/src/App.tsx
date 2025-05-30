@@ -40,7 +40,7 @@ import { Route, Routes } from "react-router";
 import { DefaultLayout } from "./layout/DefaultLayout";
 import { HomePage } from "./pages/HomePage";
 import { RegisterPage } from "./pages/RegisterPage";
-import { LoginPage } from "./pages/LoginPage";
+/*import { LoginPage } from "./pages/LoginPage";*/
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { useAppSelector } from "./app/hooks";
 import { selectAuth } from "./app/store";
@@ -57,7 +57,7 @@ export const App = () => {
                     <Route path="/" element={<DefaultLayout />}>
                         <Route index element={<HomePage />} />
                         <Route path="register" element={<RegisterPage />} />
-                        <Route path="login" element={<LoginPage />} />
+                        {/*<Route path="login" element={<LoginPage />} />*/}
                         <Route path="*" element={<NotFoundPage />} />
                     </Route>
                 </Routes>
