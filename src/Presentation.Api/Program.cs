@@ -51,11 +51,11 @@ namespace Api
 
         public void Configure(IApplicationBuilder app)
         {
-            if (Environment.IsDevelopment() || Environment.IsEnvironment("Test"))
-            {
+            //if (Environment.IsDevelopment() || Environment.IsEnvironment("Test"))
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
         }
     }
 
