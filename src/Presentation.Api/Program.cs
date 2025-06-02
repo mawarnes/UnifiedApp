@@ -110,8 +110,8 @@ namespace Api
                 {
                     builder.AllowAnyHeader()
                     .AllowAnyMethod()
-                    .WithOrigins(allowedOrigins ?? Array.Empty<string>());
-                    //AllowCredentials();
+                    .WithOrigins(allowedOrigins ?? Array.Empty<string>())
+                    .AllowCredentials();
                 });
             });
 
