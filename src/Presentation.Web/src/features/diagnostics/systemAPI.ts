@@ -7,11 +7,19 @@ const BASE_URL = import.meta.env.REACT_APP_API_URL as string;
  * @param data The data to echo (any JSON-serializable object)
  */
 export const echoApi = async (data: any) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/api/echo/echo`, data);
-    return response.data;
-  } catch (error) {
-    // Optionally, handle/log error here or rethrow
-    throw error;
-  }
+
+      const response = await axios.post(`${BASE_URL}/echo/echo`, data).catch((ex) => {
+          console.log(ex);
+      });;
+      return response?.data;
+};
+
+export const refreshToken = async (data: {
+    accessToken: string;
+    refreshToken: string;
+}) => {
+    const response = await axios.post<iAppResponse<{ accessToken: string; refreshToken: string }>>(`${BASE_URL}/user/refreshToken`, data).catch((ex) => {
+        console.log(ex);
+    });;
+    return response?.data;
 };
