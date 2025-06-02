@@ -41,7 +41,7 @@ const ResizableTitle = (props: any) => {
             right: 0,
             top: 0,
             height: "100%",
-            width: 6,
+            width: 2,
             cursor: "ew-resize",
             zIndex: 2,
             userSelect: "none",
@@ -53,7 +53,6 @@ const ResizableTitle = (props: any) => {
           onClick={e => e.stopPropagation()}
         />
       }
-      handleSize={[6, 24]}
       onResize={onResize}
       draggableOpts={{ enableUserSelectHack: false }}
     >
@@ -124,19 +123,16 @@ const UsersList: React.FC = () => {
     );
   }, [visibleKeys, editingKey, editingUserName]);
 
-const handleResize =
-  (index: number) =>
-      (_e:any,{ size }: any) => {
-    const nextColumns = [...columns];
-    // Only resize the column being dragged (on the right side)
-    nextColumns[index] = {
-      ...nextColumns[index],
-      width: size.width,
-          };
-          setColumns(nextColumns);
-  };
+    const handleResize = (index: number) => (_: any, { size }: any) => {
+        const nextColumns = [...columns];
+        nextColumns[index] = {
+            ...nextColumns[index],
+            width: size.width,
+        };
+        setColumns(nextColumns);
+    };
 
-  const mergedColumns = columns.map((col, index) => ({
+  const resizeableColumns = columns.map((col, index) => ({
     ...col,
     onHeaderCell: (column: any) => ({
       width: column.width,
@@ -200,10 +196,11 @@ const columnMenuItems = allColumnDefs.map(col => ({
           },
         }}
         dataSource={users}
-        columns={mergedColumns}
+              columns={resizeableColumns}
         rowKey="id"
         loading={loading}
-        pagination={false}
+              pagination={false}
+          scroll={{ x: "max-content" }}
       />
     </div>
   );

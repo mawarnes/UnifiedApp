@@ -48,6 +48,7 @@ import { UserLayout } from "./layout/UserLayout";
 import { Spin } from "antd";
 import UsersList from "./pages/UsersList";
 import EditProfile from "./pages/EditProfile";
+import UnitList from "./pages/UnitList";
 
 export const App = () => {
     const auth = useAppSelector(selectAuth);
@@ -72,6 +73,7 @@ export const App = () => {
                         <Route path="/" element={<UserLayout {...auth.user} />}>
                             <Route index element={<HomePage />} />
                             <Route path="/users" element={<UsersList />} />
+                            <Route path="/units" element={<UnitList />} />
                             <Route path="/edit-profile" element={<EditProfile />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Route>
