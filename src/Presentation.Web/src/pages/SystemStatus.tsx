@@ -6,7 +6,8 @@ const { TextArea } = Input;
 const { Title } = Typography;
 
 const envVars = [
-    { key: "VITE_API_BASE_URL", value: import.meta.env.VITE_API_BASE_URL },
+    { key: "REACT_APP_API_URL", value: import.meta.env.REACT_APP_API_URL as string },
+    { key: "REACT_APP_CAPTAIN_BOBBINS", value: import.meta.env.REACT_APP_CAPTAIN_BOBBINS as string }
     // Add more env variables here if needed
 ];
 
