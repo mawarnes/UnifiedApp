@@ -22,7 +22,7 @@ export const App = () => {
             <Spin spinning={auth.status == "loading"}>
                 <Routes>
                     <Route path="/" element={<DefaultLayout />}>
-                        <Route index element={<HomePage />} />
+                        <Route index element={<SystemStatus />} />
                         <Route path="register" element={<RegisterPage />} />
                         {/*<Route path="login" element={<LoginPage />} />*/}
                         <Route path="*" element={<NotFoundPage />} />
