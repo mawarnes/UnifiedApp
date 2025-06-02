@@ -7,7 +7,7 @@ const { Title } = Typography;
 
 const envVars = [
     { key: "REACT_APP_API_URL", value: import.meta.env.REACT_APP_API_URL as string },
-    { key: "REACT_APP_CAPTAIN_BOBBINS", value: import.meta.env.REACT_APP_CAPTAIN_BOBBINS as string }
+    { key: "REACT_APP_CAPTAIN_BOBBINS", value: import.meta.env.REACT_APP_CAPTAIN_BOBBINS as string },
     { key: "REACT_APP_MIKE", value: import.meta.env.REACT_APP_MIKE as string }
     // Add more env variables here if needed
 ];
