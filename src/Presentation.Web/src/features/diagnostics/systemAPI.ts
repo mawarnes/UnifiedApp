@@ -13,13 +13,3 @@ export const echoApi = async (data: any) => {
       });;
       return response?.data;
 };
-
-export const refreshToken = async (data: {
-    accessToken: string;
-    refreshToken: string;
-}) => {
-    const response = await axios.post<iAppResponse<{ accessToken: string; refreshToken: string }>>(`${BASE_URL}/user/refreshToken`, data).catch((ex) => {
-        console.log(ex);
-    });;
-    return response?.data;
-};
