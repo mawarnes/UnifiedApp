@@ -6,11 +6,19 @@ import {
 } from "@reduxjs/toolkit";
 import authReducer from "../features/user/authSlice";
 import storage from "redux-persist/lib/storage"; 
-import { persistReducer, persistStore } from "redux-persist";
+import {
+    persistReducer, persistStore, FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+} from "redux-persist";
 
 const authPersistConfig = {
   key: "auth",
-  storage:storage,  
+  storage: storage,  
+  debug: true,
 };
 
 const rootReducer = combineReducers({
@@ -22,7 +30,11 @@ export const selectAuth = (state: RootState) => state.auth;
 export const store = configureStore({
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== "production",
-    middleware: getDefaultMiddleware => getDefaultMiddleware()
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        }
+    })
 });
 
 export const persister = persistStore(store);

@@ -66,15 +66,15 @@ namespace Api
 
             var builder = WebApplication.CreateBuilder(args);
             var connectionStr = builder.Configuration.GetConnectionString("DefaultConnection");
-            var appSettings = builder.Configuration.GetSection("TokenSettings").Get<TokenSettings>() ?? default!;
-            builder.Services.AddSingleton(appSettings);
+            var tokenSettings = builder.Configuration.GetSection("TokenSettings").Get<TokenSettings>() ?? default!;
+            builder.Services.AddSingleton(tokenSettings);
 
             //adds the database and identity setup
             builder.Services.AddInfrastructure(builder.Configuration);
 
             builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
             {
-                options.TokenLifespan = TimeSpan.FromSeconds(appSettings.RefreshTokenExpireSeconds);
+                options.TokenLifespan = TimeSpan.FromSeconds(tokenSettings.RefreshTokenExpireSeconds);
             });
 
             builder.Services.AddAuthentication(options =>
@@ -91,9 +91,9 @@ namespace Api
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         RequireExpirationTime = true,
-                        ValidIssuer = appSettings.Issuer,
-                        ValidAudience = appSettings.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.SecretKey)),
+                        ValidIssuer = tokenSettings.Issuer,
+                        ValidAudience = tokenSettings.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSettings.SecretKey)),
                         ClockSkew = TimeSpan.FromSeconds(0)
                     };
                 });
@@ -103,13 +103,14 @@ namespace Api
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
+            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("webAppRequests", builder =>
                 {
                     builder.AllowAnyHeader()
                     .AllowAnyMethod()
-                    .WithOrigins(appSettings.Audience)
+                    .WithOrigins(allowedOrigins ?? Array.Empty<string>())
                     .AllowCredentials();
                 });
             });
