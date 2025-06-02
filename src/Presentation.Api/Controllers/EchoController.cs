@@ -11,5 +11,8 @@ namespace Api.Controllers
         {
             return Ok(content);
         }
+
+        [HttpPost]
+        public void Options() { }
     }
 }
