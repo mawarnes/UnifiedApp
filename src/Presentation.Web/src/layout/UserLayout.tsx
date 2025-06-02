@@ -80,6 +80,13 @@ export const UserLayout = ({ UserName }: iUser) => {
                                     handleClick(e.key);
                                 },
                             },
+                            {
+                                key: "/system-status",
+                                label: "System Status",
+                                onClick: (e) => {
+                                    handleClick(e.key);
+                                },
+                            },
                         ]}
                     />
                     <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>

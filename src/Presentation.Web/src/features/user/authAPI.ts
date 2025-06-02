@@ -2,7 +2,7 @@ import axios from "axios";
 import type { iAppResponse } from "../../app/appResponse";
 import type { ApplicationUser } from "../../pages/UsersList";
 
-const BASE_URL = "https://localhost:1002";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
 export const login = async (email: string, password: string) => {
   const response = await axios.post<iAppResponse<{ accessToken: string; refreshToken: string }>>(`${BASE_URL}/user/login`, {
