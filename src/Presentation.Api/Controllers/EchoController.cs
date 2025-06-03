@@ -13,11 +13,13 @@ namespace Api.Controllers
         [EnableCors(PolicyName = "webAppRequests")]
         public IActionResult Echo([FromBody] object content)
         {
+            Response.Headers.Append("Access-Control-Allow-Methods", "POST");
             return Ok(content);
         }
 
         [HttpPost]
-        public void Options() { }
+        public void Options() { 
+        }
         
         [HttpGet]
         [EnableCors(PolicyName = "webAppRequests")]
