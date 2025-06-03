@@ -18,7 +18,8 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public void Options() { 
+        public void Options() {
+            Response.Headers.Append("Access-Control-Allow-Methods", "POST");
         }
         
         [HttpGet]
