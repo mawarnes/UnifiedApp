@@ -1,4 +1,5 @@
-name: Azure Static Web Apps CI/CD
+name: Azure SWA - azure.warnes.com
+# For https://agreeable-water-08ae44003.6.azurestaticapps.net/
 
 on:
   push:
