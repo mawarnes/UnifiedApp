@@ -33,7 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Api\Presentation.Api.csproj" />
+    <ProjectReference Include="..\..\src\Application\Application.csproj" />
+    <ProjectReference Include="..\..\src\Presentation.Api\Presentation.Api.csproj" />
   </ItemGroup>
 
 </Project>
