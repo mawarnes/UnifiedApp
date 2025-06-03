@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Input, Button, Typography, Spin, Alert, Table } from "antd";
-import { echoApi, echoApiGet } from "../features/diagnostics/systemAPI";
+import { echoApi, echoApiGet, getCatFact } from "../features/diagnostics/systemAPI";
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -23,6 +23,11 @@ const SystemStatus: React.FC = () => {
     const [getResponse, setGetResponse] = useState<any>(null);
     const [getLoading, setGetLoading] = useState(false);
     const [getError, setGetError] = useState<string | null>(null);
+
+    // Cat fact state
+    const [catFact, setCatFact] = useState<string | null>(null);
+    const [catFactLoading, setCatFactLoading] = useState(false);
+    const [catFactError, setCatFactError] = useState<string | null>(null);
 
     const handleSend = async () => {
         setLoading(true);
@@ -58,6 +63,24 @@ const SystemStatus: React.FC = () => {
             );
         } finally {
             setGetLoading(false);
+        }
+    };
+
+    const handleGetCatFact = async () => {
+        setCatFactLoading(true);
+        setCatFactError(null);
+        setCatFact(null);
+        try {
+            const res = await getCatFact();
+            setCatFact(res.fact);
+        } catch (err: any) {
+            setCatFactError(
+                err.response?.data?.message ||
+                err.message ||
+                "An error occurred"
+            );
+        } finally {
+            setCatFactLoading(false);
         }
     };
 
@@ -109,6 +132,23 @@ const SystemStatus: React.FC = () => {
                             <pre style={{ whiteSpace: "pre-wrap" }}>
                                 {JSON.stringify(getResponse, null, 2)}
                             </pre>
+                        </Card>
+                    )}
+                </div>
+            </div>
+
+            {/* Cat Fact Section */}
+            <div style={{ marginTop: 32 }}>
+                <Typography.Title level={4}>Random Cat Fact</Typography.Title>
+                <Button onClick={handleGetCatFact} loading={catFactLoading}>
+                    Get Cat Fact
+                </Button>
+                <div style={{ marginTop: 16 }}>
+                    {catFactLoading && <Spin />}
+                    {catFactError && <Alert type="error" message={catFactError} />}
+                    {catFact && (
+                        <Card type="inner" title="Cat Fact" style={{ marginTop: 16 }}>
+                            <pre style={{ whiteSpace: "pre-wrap" }}>{catFact}</pre>
                         </Card>
                     )}
                 </div>

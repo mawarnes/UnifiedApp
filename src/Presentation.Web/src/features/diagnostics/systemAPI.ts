@@ -24,3 +24,11 @@ export const echoApiGet = async (message: string) => {
     });
     return response.data;
 };
+
+/**
+ * Fetches a random cat fact from catfact.ninja.
+ */
+export const getCatFact = async () => {
+    const response = await axios.get("https://catfact.ninja/fact");
+    return response.data;
+};
