@@ -13,3 +13,14 @@ export const echoApi = async (data: any) => {
       });;
       return response?.data;
 };
+
+/**
+ * Gets an echoed message from the EchoController using a GET request.
+ * @param message The message to echo (as a query parameter)
+ */
+export const echoApiGet = async (message: string) => {
+    const response = await axios.get(`${BASE_URL}/echo/echo`, {
+        params: { message }
+    });
+    return response.data;
+};

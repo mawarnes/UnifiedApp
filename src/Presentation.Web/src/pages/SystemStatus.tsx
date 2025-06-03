@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Input, Button, Typography, Spin, Alert, Table } from "antd";
-import { echoApi } from "../features/diagnostics/systemAPI";
+import { echoApi, echoApiGet } from "../features/diagnostics/systemAPI";
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -18,6 +18,12 @@ const SystemStatus: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    // State for GET echo
+    const [getInput, setGetInput] = useState<string>("Hello from GET!");
+    const [getResponse, setGetResponse] = useState<any>(null);
+    const [getLoading, setGetLoading] = useState(false);
+    const [getError, setGetError] = useState<string | null>(null);
+
     const handleSend = async () => {
         setLoading(true);
         setError(null);
@@ -34,6 +40,24 @@ const SystemStatus: React.FC = () => {
             );
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleGetSend = async () => {
+        setGetLoading(true);
+        setGetError(null);
+        setGetResponse(null);
+        try {
+            const res = await echoApiGet(getInput);
+            setGetResponse(res);
+        } catch (err: any) {
+            setGetError(
+                err.response?.data?.message ||
+                err.message ||
+                "An error occurred"
+            );
+        } finally {
+            setGetLoading(false);
         }
     };
 
@@ -64,6 +88,32 @@ const SystemStatus: React.FC = () => {
                     </Card>
                 )}
             </div>
+
+            {/* New GET Echo section */}
+            <div style={{ marginTop: 32 }}>
+                <Title level={4}>Echo Test (GET)</Title>
+                <Input
+                    value={getInput}
+                    onChange={e => setGetInput(e.target.value)}
+                    placeholder='Enter message for GET echo'
+                    style={{ marginBottom: 16 }}
+                />
+                <Button onClick={handleGetSend} loading={getLoading}>
+                    Send GET
+                </Button>
+                <div style={{ marginTop: 16 }}>
+                    {getLoading && <Spin />}
+                    {getError && <Alert type="error" message={getError} />}
+                    {getResponse && (
+                        <Card type="inner" title="GET Echo Response" style={{ marginTop: 16 }}>
+                            <pre style={{ whiteSpace: "pre-wrap" }}>
+                                {JSON.stringify(getResponse, null, 2)}
+                            </pre>
+                        </Card>
+                    )}
+                </div>
+            </div>
+
             <div style={{ marginTop: 32 }}>
                 <Title level={4}>Environment Variables</Title>
                 <Table
