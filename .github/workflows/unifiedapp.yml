@@ -11,11 +11,11 @@ permissions:
 env:
   AZURE_WEBAPP_NAME: unifiedapp
   AZURE_WEBAPP_PACKAGE_PATH: src/Presentation.Api/publish
-  AZURE_APIM_RESOURCE_PATH: /
-  AZURE_APIM_RESOURCEGROUP: rg-unifiedapp
-  AZURE_APIM_SERVICENAME: apim-unifiedapp
-  AZURE_APIM_API_ID: api-unifiedapp
-  AZURE_APIM_APPSERVICEURL: https://apims-unifiedapp.azure-api.net
+  # AZURE_APIM_RESOURCE_PATH: /
+  # AZURE_APIM_RESOURCEGROUP: rg-unifiedapp
+  # AZURE_APIM_SERVICENAME: apim-unifiedapp
+  # AZURE_APIM_API_ID: api-unifiedapp
+  # AZURE_APIM_APPSERVICEURL: https://apims-unifiedapp.azure-api.net
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
   API_IMPORT_SPECIFICATION_PATH: src/Presentation.Api/publish/swagger.json
@@ -67,9 +67,10 @@ jobs:
     - name: Azure Login
       uses: azure/login@v2
       with:
-        client-id:  ${{ secrets.WC_AZURE_CLIENTID_NEW }}
-        subscription-id:  ${{ secrets.WC_AZURE_SUBSCRIPTIONID }}
-        tenant-id: ${{ secrets.WC_AZURE_TENANTID }}
+        # - client ID of the app registration
+        client-id:  ${{ secrets.AZURE_CLIENTID }}
+        subscription-id:  ${{ secrets.AZURE_SUBSCRIPTIONID }}
+        tenant-id: ${{ secrets.AZURE_TENANTID }}
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
